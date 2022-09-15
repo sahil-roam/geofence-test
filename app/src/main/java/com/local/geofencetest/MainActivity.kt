@@ -128,10 +128,12 @@ class MainActivity : AppCompatActivity() {
 
     fun registerLocalBroadcast(){
 
-        var broadcastReceiver = (object : BroadcastReceiver(){
+        val broadcastReceiver = (object : BroadcastReceiver(){
             override fun onReceive(p0: Context?, p1: Intent?) {
                 if (p1?.action.equals("MY_GEOFENCE")){
                     Log.e("TAG", "onReceive: received local broadcast")
+                    val transitionTypeString = p1?.getStringExtra("TRANSITION_TYPE")
+                    Log.e("TAG", "onReceive: transition type -> $transitionTypeString")
                 }
             }
         })

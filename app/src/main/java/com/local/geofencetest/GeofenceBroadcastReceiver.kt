@@ -21,22 +21,27 @@ class GeofenceBroadcastReceiver: BroadcastReceiver() {
             return
         }
 
-        LocalBroadcastManager.getInstance(p0!!).sendBroadcast(Intent("MY_GEOFENCE"))
+        var myIntent = Intent("MY_GEOFENCE")
+
 
         // Get the transition type.
         val geofenceTransition = geofencingEvent.geofenceTransition
 
         if (geofenceTransition == Geofence.GEOFENCE_TRANSITION_ENTER){
             Log.e("TAG", "onReceive: transition enter")
+            myIntent.putExtra("TRANSITION_TYPE", "ENTER")
         }
 
         if (geofenceTransition == Geofence.GEOFENCE_TRANSITION_EXIT){
             Log.e("TAG", "onReceive: transition exit")
+            myIntent.putExtra("TRANSITION_TYPE", "EXIT")
         }
 
         if (geofenceTransition == Geofence.GEOFENCE_TRANSITION_DWELL){
             Log.e("TAG", "onReceive: transition dwell")
+            myIntent.putExtra("TRANSITION_TYPE", "DWELL")
         }
+        LocalBroadcastManager.getInstance(p0!!).sendBroadcast(myIntent)
 
 
     }
